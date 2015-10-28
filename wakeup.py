@@ -35,13 +35,23 @@ endDate = (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%dT%H:%M:%S.000Z
 calendar_service = GServ.CalendarService()
 calendar_service.email = email
 calendar_service.password = password
-calendar_service.source = 'SimpleGoogleAlarmClock'
+calendar_service.source = 'Google-Calendar_Python_Sample-1.0'
 calendar_service.ProgrammaticLogin()
  
 #************************************************************************************# 
 #****           Main query                                                       ****#
 #************************************************************************************# 
 def FullTextQuery(calendar_service):
+    print "Waking you up!"
+    print "---" 
+    songfile = random.choice(os.listdir(mp3_path)) #  choosing by random an .mp3 file from directory
+    print "Now Playing:", songfile
+                                                   #  plays the MP3 in it's entirety. As long as the file is longer 
+                                                   #  than a minute it will only be played once:
+    command ="mpg321" + " " + mp3_path + "'"+songfile+"'"+ " -g 100" 
+    print command
+    os.system(command)                             #  plays the song
+
     print 'Full text query for events on Primary Calendar: \'%s\'' % (q)
     query = GServ.CalendarEventQuery(calendar, 'private', 'full', q)
     query.start_min = date       #  calling date to set the beginning of query range for the present day
