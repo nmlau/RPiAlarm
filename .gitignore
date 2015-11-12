@@ -1,1 +1,7 @@
+*.pyc
+.AppleDouble/
+cleaning_up/.AppleDouble/
+libs/.AppleDouble/
+mp3/.AppleDouble/
+.DS_Store
 client_secret.json
