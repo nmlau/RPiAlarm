@@ -1,7 +1,13 @@
+* Unnecessary
+.DS_Store
 *.pyc
+
+# Privacy
+*.log
+client_secret.json
+
+# Artifacts from Mac Talk Protocol
 .AppleDouble/
 cleaning_up/.AppleDouble/
 libs/.AppleDouble/
 mp3/.AppleDouble/
-.DS_Store
-client_secret.json

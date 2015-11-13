@@ -1,8 +1,9 @@
 [credentials]
 email = nicholas.lau47@gmail.com
-password = 
 
 [alarm]
 query = wake
 mp3_path = mp3/
 calendar = default
+interval = 10
+
