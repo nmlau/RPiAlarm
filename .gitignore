@@ -8,6 +8,7 @@ client_secret.json
 
 # Artifacts from Mac Talk Protocol
 .AppleDouble/
-cleaning_up/.AppleDouble/
+examples/.AppleDouble/
+modules/.AppleDouble/
 libs/.AppleDouble/
 mp3/.AppleDouble/
