@@ -3,20 +3,13 @@ from __future__ import print_function
 import os
 
 import datetime
+import pytz
 
 import httplib2
 from apiclient import discovery
 import oauth2client
 from oauth2client import client
 from oauth2client import tools
-
-import pdb
-
-import pytz
-
-import os
-from time import sleep
-import random
 
 
 try:
@@ -28,7 +21,6 @@ except ImportError:
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
-
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -58,22 +50,26 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
-def get_events(credentials):
+def get_events(credentials, query):
     # credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 
-    # Get next 10 events
+    # API for events().list at: https://developers.google.com/google-apps/calendar/v3/reference/events/list
+    #  enables creation of repeating events
     eventsResult = service.events().list(
-        calendarId='primary', timeMin=now, maxResults=10, singleEvents=True, orderBy='startTime').execute()
+        calendarId='primary', q=query, timeMin=now, maxResults=100, singleEvents=True, orderBy='startTime').execute()
 
     return eventsResult.get('items', [])
 
-def checkEvents(events, now):
+def check_events(events, now):
     if not events:
         print('No upcoming events found.')
     for event in events:
+        # no dateTime if it's a fullday event (can't select for this in calendar query)
+        if not event['dateTime']:
+            continue
         # Cut the time to match: localFormat = "%Y-%m-%dT%H:%M"
         start = event['start']['dateTime'][:-9]         
         print(start, event['summary'])
