@@ -9,5 +9,14 @@ def readConfig():
     mp3_path = parser.get('alarm', 'mp3_path')
     interval = parser.get('alarm', 'interval')
     timezone = parser.get('alarm', 'timezone')
+    shutoff_interval = parser.get('alarm', 'shutoff_interval')
+    query = parser.get('alarm', 'query')
     # query = parser.get('alarm', 'query')
-    return (mp3_path, int(interval), timezone)
+
+    # config = {}
+    # config["mp3_path"] = parser.get('alarm', 'mp3_path')
+    # config["interval"] = parser.get('alarm', 'interval')
+    # config["timezone"] = parser.get('alarm', 'timezone')
+    # config["shutoff_interval"] = parser.get('alarm', 'shutoff_interval')
+
+    return (mp3_path, int(interval), timezone, shutoff_interval)

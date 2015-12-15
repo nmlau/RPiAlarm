@@ -10,4 +10,5 @@ mp3_path = mp3/
 interval = 10
 timezone = PST
 calendar = default
+shutoff_interval = 60
 

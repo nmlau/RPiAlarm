@@ -3,7 +3,7 @@
 from datetime import datetime
 import pytz
 
-def getCurrentTimeFromTimeZone(timezone):
+def get_current_time(timezone):
     # same format as google event time
     localFormat = "%Y-%m-%dT%H:%M" 
 
