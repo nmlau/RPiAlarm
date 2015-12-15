@@ -20,27 +20,33 @@ from time import sleep
 
 class Alarm:
     def __init__(self):
-        configuration = config.readConfig() # returns (string mp3_path, int interval)
+        # read config file, initialize sound, oauth with google calendars
+        configuration = config.readConfig() # returns (string mp3_path, int interval, string timezone)
         self.mp3_path = configuration[0]
         self.interval = configuration[1]
         self.timezone = configuration[2]
-        self.credentials = googlecalendar.get_credentials()
+        self.shutoff_interval = configuration[3]
+        self.query = configuration[4]
         self.sound = sound.Sound(self.mp3_path)
+        self.credentials = googlecalendar.get_credentials()
+    
     def run(self):
         try:
-            events = googlecalendar.get_events(self.credentials)
-            now = timezone.getCurrentTimeFromTimeZone(self.timezone)
-            if googlecalendar.checkEvents(events, now):
-                self.sound.soundAlarm()
-            sleep(self.interval)
+            events = googlecalendar.get_events(self.credentials, self.query)
+            now = timezone.get_current_time(self.timezone)
+            if googlecalendar.check_events(events, now):
+                self.sound.start()
         except KeyboardInterrupt:
-            # Temporary Hack: 60 Seconds * 60 Minutes * 12 Hours
-            self.sound.turnOffAlarm()
-            print "KeyboardInterrupt: 12 Hour Shutoff"
-            # sleep(60 * 60 * 12) 
-            sleep(self.interval * 12)
+            self.interrupt()
+    
+    def interrupt(self):
+        # Temporary Hack: 60 Seconds * 60 Minutes * 12 Hours
+        self.sound.stop()
+        print("Alarm turned off: {0} Second Shutoff").format(self.shutoff_interval)
+        sleep(self.shutoff_interval)        
 
 if __name__ == '__main__':
     alarm = Alarm()
     while True:
         alarm.run()
+        sleep(self.interval)
