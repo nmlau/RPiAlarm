@@ -20,7 +20,7 @@ class Sound:
       # -g 100, sets sound to 100, & runs in background
       if platform.system() == 'Linux':
         command = "mpg321"
-      else if platform.system() == 'Darwin':
+      elif platform.system() == 'Darwin':
         command = "mpg123"
       command += " " + self.mp3_path + "'"+songfile+"'"+ " -g 100 &"
 

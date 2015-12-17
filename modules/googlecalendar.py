@@ -11,7 +11,6 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 
-
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -68,7 +67,7 @@ def check_events(events, now):
         print('No upcoming events found.')
     for event in events:
         # no dateTime if it's a fullday event (can't select for this in calendar query)
-        if not event['dateTime']:
+        if 'dateTime' in event == False:
             continue
         # Cut the time to match: localFormat = "%Y-%m-%dT%H:%M"
         start = event['start']['dateTime'][:-9]         
