@@ -5,7 +5,7 @@ CLIENT_SECRET_FILE = 'client_secret.json'
 CALENDAR_ID = '4n6njdve30cf3b7ve74glt834s@group.calendar.google.com'
 
 [alarm]
-query = wake
+query = alarm
 mp3_path = mp3/
 interval = 10
 timezone = PST

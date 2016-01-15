@@ -1,0 +1,220 @@
+
+Blog Post where I kind of hashed this all together: http://www.nicklau.io/blog/2015/12/01/raspberry-pi-alarm/
+
+===================== important commands =====================
+
+open afp://192.168.1.102
+ssh pi@192.168.2.164
+
+===================== To Do =====================
+
+What to do if internet goes down
+
+===================== Current Alarm (iPad) =====================
+
+Pros:
+-Battery lasts months
+-Doesn't need to stay plugged in
+-Great alarms display (Actually I don't know how much I like it...)
+
+Cons:
+-Multiple steps to change (nvm turned alarm off)
+-Small button to turn alarm off
+
+Biggest reason:
+-Can't preemptively turn off alarm for just that day
+
+===================== Raspberry Pi =====================
+
+Pro:
+-Complete Customization
+-Can preemptively turn off alarm
+-Quick alarm changes
+-Would be a fun project to work on
+
+Cons:
+-Will probably have to stay plugged in
+-Won't have as clean as of an interface
+
+I might be able to plug it in out of the way, and keep a radio signal remote on the dresser
+
+===================== Why the Raspberry Pi =====================
+
+Community Support:
+Best DIY motherboard, beats out others like Arduino
+
+Preemptive turn off:
+One button push to turn off all future alarms for the day
+
+Quick alarm switch:
+Better UI for switching alarms on/off, setting alarms
+
+===================== Components =====================
+
+Leaning away from the kit, doesn't seem like that great of a deal, and forces me into components that I could probably find better versions of
+
+Ordered:
+Raspberry Pi 2 (Alliedelec but shipping so go with amazon, http://goo.gl/P1Rrem)
+MicroSD Card (preferably preloaded with NOOBS) (Transcend class 10, http://goo.gl/7dVEF8)
+WiFi Adapter (Going with edimax because it's nano and I don't need 300Mbps)
+-Edimax, http://goo.gl/8NCgpE
+-Panda 300Mbps, http://goo.gl/JIcLwv
+Power Adapter (Northpada because better reviews, higher mAH, one piece charger)
+-Motorola microUSB, http://goo.gl/DZ2Afo
+-NorthPada, http://goo.gl/X7Jzfh
+Case (SB Clear Case, http://goo.gl/VWbPIU)
+-Oops got model 1 case, bought this model 2 case: http://goo.gl/54ZQH4
+
+Acquired:
+Keyboard and Mouse USB (Already have)
+HDMI cable and Ethernet (Already have)
+Speaker (want usb)
+
+List:
+Heatsink (don't think I need this unless I'm running HD video constantly)
+
+[1] Research RPi IR Interface/Sock, to execute keypress
+-Guide on Controlling GPIO on RPi with IR Remote, http://goo.gl/d9aaqz
+-Python Example, https://github.com/developius/pi_scripts/tree/master/IR
+-List of Stuff I need (Model B+):
+Mini Remote Control (IR), http://goo.gl/xIfdZ
+IR Receiver Sensor, http://goo.gl/SkpM2
+Ribbon Cable
+Breadboard
+-Maybe Somewhat Optional:
+3 LEDs
+Wires (3 for LED Positives, 3 for LED Negatives, 3v3 power to IR Out, Ground to IR GND, GPIO 18 - PCM_CLK to IR Vs)
+More random wires for the breadboard?
+R1 270n, whatever the yellow boxes are, (http://goo.gl/eLDBsQ)
+-Ask steven: Can I attach the IR Receiver Sensor straight to GPIO (no breadboard). However, learning to use breadboard would be nice and the example gives me a starting point rather than just jumping straight in
+
+
+===================== Setup =====================
+
+Download Noobs (make sure not copy files in, not the folder)
+Download and use formatter, make sure to have lock switch off
+Plug everything in
+Install Raspian
+Turn on SSH, expand filesystem
+
+===================== Guides =====================
+
+Getting Started Guide, http://goo.gl/EOip4i
+-Good for components
+
+Component Guide, http://goo.gl/YA8hUI
+-Recommends heatsink on top of normal stuff. Good component recommendations as well
+
+Speaking Alarm Clock, https://goo.gl/nq50lE
+-https://github.com/skiwithpete/alarmpi
+-Components:
+Get that little speaker: http://amzn.to/1uYs8zl
+Get the WiFi dongle: http://amzn.to/1v8L7Ho
+Get my huge phone: http://amzn.to/1CDh4Sk
+Get a 5V2A power supply: http://amzn.to/13LeA49
+And, the Raspberry Pi 2B: http://amzn.to/1zJlP9L
+
+Superior Alternative Alarm Clock Projects, https://goo.gl/Ucjzhc
+
+===================== Raspberry Pi Headless Wifi Setup =====================
+
+[2] Headless setup for pi, do basic one then try to get wifi one working, https://goo.gl/YMnRHY:
+-For headless setup I spent 3 days thinking it might be difficult before I actually read an article and saw how easy it was. If I had looked into it earlier I could have had it done ages ago. Nvm the wifi setup was obnoxious
+-If you're not on ethernet and can't look up pi's is: ssh pi@192.168.2.164
+-arp -a to get ip
+-ssh pi@ip
+-wireless setup more difficult, it's a pain to walk across the house for the other ethernet port... followed this guide: http://goo.gl/X7ajVr
+-It didn't use wpa_supplicant though, just hard coded. Also, wasn't able to install so had to get nmap to find it. Used homebrew to install nmap, but had an issue with smylink not being able to write, used "sudo chown -R $(whoami) /usr/local/lib/" to fix that
+-I can see:
+MAC Address: 74:DA:38:41:85:9C (Edimax Technology Co.)
+Nmap scan report for 192.168.1.102
+Host is up.
+-ssh pi@192.168.1.102
+Gets a Connection refused
+-Taking a break from this for now... try this later, http://goo.gl/dHZhzA
+-linux firewall issue? Ask dad if there's a firewall. None on raspberry pi
+-Changing port: sudo vim.tiny /etc/ssh/ssh_config
+change port to 2122 the "sudo service ssh restart"
+-Holy shit, I was trying the wrong ip from nmap, they were misaligned... 
+-I nice way to check was whether you could ping the address you found in nmap
+-http://goo.gl/X7ajVr
+Done for now, still can do security and machine name (rather than ip address) later
+
+Commands:
+sudo nmap -sP 192.168.1.0/24
+ssh pi@nmap.result
+
+Getting my ip address:
+ipconfig getifaddr en0
+192.168.1.102
+
+File Transfer using afp (appletalk protocol) to pi, http://goo.gl/I5FOIr
+-Install netatalk on pi
+-afp in from mac
+
+===================== Setting up McGyver Workflow =====================
+
+McGyver Guide, http://goo.gl/grB425
+-First resource I tried, didn't work until I plugged ethernet into my mba: "cat /private/var/db/dhcpd_leases"
+-Also, I'm not intereseted in using vnc, have no need to see actual screen
+
+[3] Raspberry Pi, setup USB dev flow, figure out what components I need
+-Will probably need a USB hub
+-USB to ethernet, USB to microUSB
+-I don't know what a micro USB is? Why won't the ones I have fit
+-I have Mini-B, not Micro-B, http://goo.gl/S0vDFP
+-Can power my Pi with battery for portability
+-Another pretty good guide on setting up ssh over ethernet, go through if I can ssh in but the rpi still can't connect to internet, https://goo.gl/6wLzHQ
+-Conclusion, it works when mba is connected to ethernet, but when it's not you can still see pi's address, but ssh will timeout
+-Seems to be bug with USB-Ethernet Adaptor, https://goo.gl/eXXvEA
+
+What are the addresses: MAC, ARP... http://goo.gl/BWyrjb
+-Also called physical address, is a unique identifier assigned to network interfaces for communications on the physical network segment.
+-A MAC address is given to a network adapter when it is manufactured. It is hardwired or hard-coded onto your computer's network interface card (NIC) and is unique to it. 
+-Something called the ARP (Address Resolution Protocol) translates an IP address into a MAC address
+
+Stackexchange on sshing over ethernet, http://goo.gl/NRVbNF
+-netstat -rn -finet
+-Can see routing tables, identify desired one through Gateway (MAC Address)
+-It might be worth turning on ipv6 on rpi
+-Other solutions might be worth looking through, don't fully understand them
+
+To fix self-assigned IP problem, http://goo.gl/DuVKfb
+-Go to advanced, TCP/IP, Renew DHCP Lease
+-The video mentions making a new location if renewing doesn't work
+
+Follow this to, https://goo.gl/6b6mqK
+-arp -i bridge0 -a
+This command doesn't do much for me...
+-But this will let me run "ssh pi@raspberrypi.local"
+sudo apt-get update
+sudo apt-get install avahi-daemon
+# and check the hostname too
+hostname
+
+===================== Setting up Project =====================
+
+Superior Alternative Alarm Clock Projects, https://goo.gl/Ucjzhc
+-My favorite: https://github.com/bubbl/SimpleGoogleAlarmClock
+"I like this one, haven't got it setup yet. They started on adding a socket server to listen to the phyiscal world for things, like a button press for snooze or stopping the alarm. Assuming you are up to the coding challenge it'd be nice if someone finished that functionality."
+
+Install pyfeed, mpg321 (audio player)
+-Debugging audio issues, http://goo.gl/IAIcrj
+-This line fixed everything, by setting default audio interface to analog 3.5mm: 
+amixer cset numid=3 1
+-Oops spent time like
+
+tf_from_timestamp (rfc.feed), http://goo.gl/5NxXlm
+-RFC 3339 format to Python time float values, and vice versa
+-Google Calendar Service uses 3339
+
+Have to understand time better, particularly local time, here is link to python time module, https://goo.gl/9sMvlt
+
+Interesting but poorly written project to steal stuff from,
+http://mattdyson.org/projects/alarmpi/
+
+SimpleGoogleAlarm clock post, http://www.esologic.com/?p=634
+-Which led to finding updated v3 one, https://github.com/ehamiter/get-on-the-bus
+
+Looks like I'll have to work from the top since the API has changed since v3 guy wrote his, https://goo.gl/n8X7fA 
+

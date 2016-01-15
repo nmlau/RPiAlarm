@@ -2,6 +2,8 @@
 from __future__ import print_function
 import os
 
+import pdb
+
 import datetime
 import pytz
 
@@ -19,7 +21,7 @@ except ImportError:
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+APPLICATION_NAME = 'Google Calendar API Raspberry Pi Alarm'
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -56,10 +58,8 @@ def get_events(credentials, query):
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 
     # API for events().list at: https://developers.google.com/google-apps/calendar/v3/reference/events/list
-    #  enables creation of repeating events
-    eventsResult = service.events().list(
-        calendarId='primary', q=query, timeMin=now, maxResults=100, singleEvents=True, orderBy='startTime').execute()
-
+    # singleEvents=True, enables creation of repeating events
+    eventsResult = service.events().list(calendarId='primary', q=query, timeMin=now, maxResults=100, singleEvents=True, orderBy='startTime').execute()
     return eventsResult.get('items', [])
 
 def check_events(events, now):
