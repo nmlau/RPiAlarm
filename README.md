@@ -14,6 +14,7 @@ Great python libraries, http://goo.gl/2SWw1G
 In Progress:
 
 Todo:
+* Do mpg shutoff with multithreading
 * Waiting on Components: IR to turn off
 * Switch to running pyfeed messages (weather, news, etc)
 
