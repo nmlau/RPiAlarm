@@ -7,8 +7,9 @@ CALENDAR_ID = '4n6njdve30cf3b7ve74glt834s@group.calendar.google.com'
 [alarm]
 query = alarm
 mp3_path = mp3/
-interval = 10
 timezone = PST
 calendar = default
-shutoff_interval = 60
+polling_interval = 10
+lock_interval = 6
+automatic_shutoff_interval = 20
 

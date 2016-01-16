@@ -14,10 +14,11 @@ def readConfig():
     # return (mp3_path, int(interval), timezone, int(shutoff_interval), query)
 
     config = {}
-    config["mp3_path"] = parser.get('alarm', 'mp3_path')
-    config["interval"] = parser.get('alarm', 'interval')
-    config["timezone"] = parser.get('alarm', 'timezone')
-    config["shutoff_interval"] = parser.get('alarm', 'shutoff_interval')
-    config["query"] = parser.get('alarm', 'query')
+    config['mp3_path'] = parser.get('alarm', 'mp3_path')
+    config['timezone'] = parser.get('alarm', 'timezone')
+    config['polling_interval'] = parser.get('alarm', 'polling_interval')
+    config['lock_interval'] = parser.get('alarm', 'lock_interval')
+    config['automatic_shutoff_interval'] = parser.get('alarm', 'automatic_shutoff_interval')
+    config['query'] = parser.get('alarm', 'query')
 
     return config

@@ -11,21 +11,24 @@ Great python libraries, http://goo.gl/2SWw1G
 
 ==================== Todo ====================
 
-Done:
-* Move Alarm to its own file
-* Turn config tuple into map
-
 In Progress:
 
 Todo:
-* Workout Design
+* Waiting on Components: IR to turn off
+* Switch to running pyfeed messages (weather, news, etc)
 
-* Waiting on Components: IR to turn off, then switch to running pyfeed messages (weather, news, etc)
+==================== Notes (Potential todo) ====================
 
 * Change to arrow for datetime?
+* Should I move the UI to separate Module
+* Sound start and stop are very similar, adjust design?
 
-==================== Done ====================
+==================== Done (Top most recent) ====================
 
+* Fix Design, Deal with sound flag not shutting off
+* Move Alarm to its own file
+* Turn config tuple into map
+* Fix mpg bug where it tries to play its options as arguments
 * Globals should go in config file, using (safe)configparser
 * Fix fullday events by checking for datetime, look for events by query (add query to config)
 * Check for OS when calling mpg (since python library is different) (use platform library)

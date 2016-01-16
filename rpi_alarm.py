@@ -13,6 +13,6 @@ import pdb
 from modules import alarm
 
 if __name__ == '__main__':
-    alarm = alarm.Alarm()
-    while True:
-        alarm.run()
+  alarm = alarm.Alarm()
+  while True:
+    alarm.start()
