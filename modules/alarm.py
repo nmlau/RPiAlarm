@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from modules import googlecalendar
 from modules import config
 from modules import sound
@@ -14,12 +15,15 @@ class Alarm:
         self.configuration = config.readConfig()
 
         # initialize modules module
+        self.irinterface = irinterface.IRInterface()
         self.sound = sound.Sound(self.configuration['mp3_path'], float(self.configuration['automatic_shutoff_interval']))
         self.credentials = googlecalendar.get_credentials()
         self.events = {} # check whether this declaration is necessary or if can just initialize
     
     def start(self):
         try:
+            # if self.irinterface.readIRCode():
+            #     self.lock()
             self.events = googlecalendar.get_events(self.credentials, self.configuration['query'])
             self.check_events()
             sleep(float(self.configuration['polling_interval']))

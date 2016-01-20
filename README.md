@@ -5,18 +5,18 @@ Notes:
 * Should play music in background so it can still access OS to shut music off
 
 Great python libraries, http://goo.gl/2SWw1G
--Arrow for datetime
--Maybe invoker if I have trouble with os
--Could use for RPI (add to notes for it)
+* Arrow for datetime
+* Maybe invoker if I have trouble with os
+* Could use for RPI (add to notes for it)
 
 ==================== Todo ====================
 
 In Progress:
+* Add lirc to alarm
 
 Todo:
 * sound.playing flag is no longer needed
 * Do mpg shutoff with multithreading
-* Waiting on Components: IR to turn off
 * Switch to running pyfeed messages (weather, news, etc)
 
 ==================== Notes (Potential todo) ====================
@@ -27,6 +27,9 @@ Todo:
 
 ==================== Done (Top most recent) ====================
 
+* Waiting on Components: IR to turn off
+* Setup Wiring on Breadboard
+* Setup lirc
 * Fix Design, Deal with sound flag not shutting off
 * Move Alarm to its own file
 * Turn config tuple into map
