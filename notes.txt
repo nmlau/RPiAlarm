@@ -218,3 +218,20 @@ SimpleGoogleAlarm clock post, http://www.esologic.com/?p=634
 
 Looks like I'll have to work from the top since the API has changed since v3 guy wrote his, https://goo.gl/n8X7fA 
 
+===================== IR Interface =====================
+
+-Guide on Controlling GPIO on RPi with IR Remote, http://goo.gl/d9aaqz
+
+[2] Pi wiring: plug everything in, 
+-sudo vi/m for read-only files, http://goo.gl/UAbTBv
+-pi not turning on with breadboard/breakout plugged in... not compatible with downgrade/b+?
+-Workouts with 40 pin connector with no wires, but doesn't work with things plugged in
+-Can't plug in stuff to sidebars? Don't understand how those work. Works if I put IR receiver lower down in main area.
+
+mode2: could not get file information for /dev/lirc0 
+mode2: default_init() no such
+-(ansewr by Diogo Master at bottom of main tutorial) Edit your /boot/config.txt file and add:
+dtoverlay=lirc-rpi,gpio_in_pin=18
+
+irw to test my conf file... doesn't work that great, good buttons are: volumedown, enter
+-Can redo it at some point, just use the good buttons for now

@@ -20,10 +20,11 @@ class Sound:
       self.playing = True
       os.system(command)
 
-      # Automatically shuts off alarm after configured time, magic number for now
+      # Automatically shuts off alarm after configured time
       sleep(self.automatic_shutoff_interval)
       self.stop()
 
+    # This is never reached?
     else:
       print "Sound already running"
 
